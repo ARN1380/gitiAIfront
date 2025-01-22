@@ -167,7 +167,7 @@ export default function Home() {
       </main>
 
       <footer className="min-h-[387px] grid grid-cols-4 bg-white shadow-sm">
-        <div className="grid-span-1 flex flex-col items-center ">
+        <div className="col-span-1 flex flex-col items-center ">
           <div className="flex gap-[10px] items-center mt-[91px]">
             <Image src={icon} alt="logo" width={60} height={45} />
             <h1 className="font-bold text-2xl text-[#332C2B]">Giti Ai</h1>
@@ -175,35 +175,41 @@ export default function Home() {
           <div></div>
         </div>
 
-        <menu className="grid-span-3">
+        <menu className="col-span-3 mt-[86px] flex gap-40 w-full">
           <div>
-            <h4>
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
+            <h4 className="font-semibold text-[#212421] text-xl">
+            شرکت ما
             </h4>
+            <ul className="mt-10 flex flex-col gap-[30px]">
+                <li>مقالات</li>
+                <li>پادکست</li>
+                <li>مشاغل</li>
+                <li>اتاق اخبار</li>
+              </ul>
           </div>
           <div>
-            <h4>
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
+            <h4 className="font-semibold text-[#212421] text-xl">
+            شرکت ما
             </h4>
+            <ul className="mt-10 flex flex-col gap-[30px]">
+                <li>مقالات</li>
+                <li>پادکست</li>
+                <li>مشاغل</li>
+                <li>اتاق اخبار</li>
+              </ul>
           </div>
           <div>
-            <h4>
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
+            <h4 className="font-semibold text-[#212421] text-xl">
+            شرکت ما
             </h4>
+            <ul className="mt-10 flex flex-col gap-[30px]">
+                <li>مقالات</li>
+                <li>پادکست</li>
+                <li>مشاغل</li>
+                <li>اتاق اخبار</li>
+              </ul>
           </div>
+          
         </menu>
       </footer>
     </>
