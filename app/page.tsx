@@ -1,101 +1,211 @@
 import Image from "next/image";
+import icon from "@/public/assets/images/icon.svg";
+import gift from "@/public/assets/images/gift.svg";
+import hero from "@/public/assets/images/hero-4x.png";
+import filmIcon from "@/public/assets/images/film-icon.png";
+import pictureIcon from "@/public/assets/images/picture-icon.png";
+import galleryAdd from "@/public/assets/images/gallery-add.svg";
+import videoAdd from "@/public/assets/images/video.svg";
+import firstBot from "@/public/assets/images/firstBot.png";
+import secondBot from "@/public/assets/images/secondBot.png";
+import thirdBot from "@/public/assets/images/thirdBot.png";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      <header className="h-[75px] flex items-center justify-center bg-[#fff] shadow-sm">
+        <div className="max-w-[1300px] w-full flex items-center gap-[60px]">
+          <div className="flex items-center gap-[10px]">
+            <Image src={icon} alt="logo" width={60} height={45} />
+            <h1 className="font-bold text-2xl text-[#332C2B]">Giti Ai</h1>
+          </div>
+          <menu className=" flex justify-between flex-1">
+            <ul className="flex gap-10 font-bold text-[#191925]">
+              <li>کشف هوش مصنوعی</li>
+              <li>کاتالوگ</li>
+              <li>مقالات</li>
+            </ul>
+            <ul className="flex gap-10 text-[#787878]">
+              <li>درباره ما</li>
+              <li>قیمت</li>
+            </ul>
+          </menu>
+          <button className="flex gap-4 bg-[#FEF6F2] rounded-full h-10 w-[186px] items-center justify-center">
+            <p>رایگان ثبت نام کن</p>
+            <Image src={gift} alt="logo" width={16} height={16} />
+          </button>
+        </div>
+      </header>
+      <main className="flex justify-center">
+        <div className="max-w-[1300px] w-full flex flex-col items-center">
+          {/* hero */}
+          <section className="flex justify-center ">
+            <div className="mt-[30px]">
+              <Image src={hero} alt="hero" />
+            </div>
+          </section>
+          {/* giti ai */}
+          <section className="flex justify-center mt-[100px]">
+            <div className="flex justify-center flex-col items-center ">
+              <h1 className="capitalize text-[70px] font-bold bg-gradient-to-r from-[#3D16EC] to-[#FD247B] bg-clip-text text-transparent">
+                giti ai
+              </h1>
+              <p className="text-[20px]">
+                بهترین ابزار هوش مصنوعی، مدل های بزرگ، نسل هوش مصنوعی، تولید
+                ویدئو را کشف کنید!
+              </p>
+              <div className="mt-[30px] flex gap-[20px]">
+                <button className="px-[20px] py-4 gap-[10px] flex bg-white rounded-full border-[#E5E7EB] border items-center">
+                  <p>تولید ویدیو</p>
+                  <Image src={filmIcon} alt="logo" width={18} height={18} />
+                </button>
+                <button className="px-[20px] py-4 gap-[10px] flex bg-white rounded-full border-[#E5E7EB] border items-center">
+                  <p>تولید تصویر</p>
+                  <Image src={pictureIcon} alt="logo" width={18} height={18} />
+                </button>
+              </div>
+            </div>
+          </section>
+          {/* ai features */}
+          <section className="w-full mt-20">
+            <div className="bg-white p-[30px] flex flex-col">
+              <menu className="bg-[#F3F6F9]">
+                <ul className="flex justify-around h-[84px] items-center px-20">
+                  <li className="bg-[#041A43] text-white px-[30px] py-[10px] rounded-full">
+                    سینمایی سازی تصویر
+                  </li>
+                  <li>همگام سازی ویدیو</li>
+                  <li>ساخت کلیپ با افکت</li>
+                  <li>ساخت ویدیو سینمایی</li>
+                </ul>
+              </menu>
+              {/* upload section */}
+              <div className="mt-[52px] flex gap-4">
+                {/* image */}
+                <div className="flex-1 flex flex-col gap-4">
+                  <h6>انتخاب تصویر</h6>
+                  <div className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center">
+                    <Image src={galleryAdd} alt="logo" width={24} height={24} />
+                    <p className="text-[#767676]">بارگذاری تصویر</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <p>حداکثر حجم تصویر:</p>
+                    <p>20 مگابایت</p>
+                  </div>
+                </div>
+                {/* video */}
+                <div className="flex-1 flex flex-col gap-4">
+                  <h6>انتخاب ویدئو</h6>
+                  <div className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center">
+                    <Image src={videoAdd} alt="logo" width={24} height={24} />
+                    <p className="text-[#767676]">بارگذاری ویدیو</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <p>حداکثر حجم تصویر:</p>
+                    <p>200 مگابایت</p>
+                  </div>
+                </div>
+              </div>
+              <button className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end ">
+                تولید ویدئو
+              </button>
+            </div>
+          </section>
+          {/* texts */}
+          <section className=" gap-[100px] mt-[200px] grid grid-cols-3">
+            <div className="flex flex-col gap-[20px] col-span-2">
+              <h3 className="text-2xl font-extrabold">
+                جادوی هوش مصنوعی، عکس‌های شما را به زندگی می‌بخشد
+              </h3>
+              <p className="leading-10">
+                تصور کنید عکس‌های خانوادگی شما، لحظه به لحظه زنده شوند. یا
+                تصویری که از طبیعت گرفته‌اید، به یک فیلم کوتاه و جذاب تبدیل شود.
+                با پیشرفت هوش مصنوعی، این رویا به واقعیت پیوسته است. حالا شما
+                می‌توانید با یک کلیک ساده، عکس‌های خود را به ویدیوهای متحرک و
+                پویا تبدیل کنید.
+              </p>
+            </div>
+            <div className="col-span-1">
+              <Image src={firstBot} alt="firstBot" width={300} />
+            </div>
+          </section>
+          <section className=" gap-[100px] mt-[200px] grid grid-cols-3">
+            <div className="col-span-1">
+              <Image src={secondBot} alt="firstBot" width={300} />
+            </div>
+            <div className="flex flex-col gap-[20px] col-span-2">
+              <h3 className="text-2xl font-extrabold">
+                انقلاب تصویر، از عکس به ویدیو
+              </h3>
+              <p className="leading-10">
+                در گذشته، عکس‌ها مانند پنجره‌هایی کوچک به دنیای گذشته بودند. اما
+                امروزه، هوش مصنوعی این پنجره‌ها را به درهایی بزرگ تبدیل کرده است
+                که ما را به دنیای متحرک و پویای تصاویر می‌برد. با تبدیل عکس به
+                ویدیو، نه تنها به گذشته سفر می‌کنیم، بلکه می‌توانیم آینده را نیز
+                تصور کنیم.
+              </p>
+            </div>
+          </section>
+          <section className=" gap-[100px] mt-[200px] grid grid-cols-3 mb-[200px]">
+            <div className="flex flex-col gap-[20px] col-span-2">
+              <h3 className="text-2xl font-extrabold">
+                پشت پرده جادوی تبدیل عکس به ویدیو
+              </h3>
+              <p className="leading-10">
+                شاید برایتان جالب باشد بدانید که چگونه یک عکس ثابت می‌تواند به
+                یک ویدیوی متحرک تبدیل شود. این فرایند، با استفاده از
+                الگوریتم‌های پیچیده هوش مصنوعی انجام می‌شود. این الگوریتم‌ها، با
+                تحلیل پیکسل‌های یک تصویر، می‌توانند حرکت‌ها و تغییرات احتمالی را
+                پیش‌بینی کرده و آن‌ها را به صورت یک ویدیو شبیه‌سازی کنند.
+              </p>
+            </div>
+            <div className="col-span-1">
+              <Image src={thirdBot} alt="firstBot" width={300} />
+            </div>
+          </section>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      <footer className="min-h-[387px] grid grid-cols-4 bg-white shadow-sm">
+        <div className="grid-span-1 flex flex-col items-center ">
+          <div className="flex gap-[10px] items-center mt-[91px]">
+            <Image src={icon} alt="logo" width={60} height={45} />
+            <h1 className="font-bold text-2xl text-[#332C2B]">Giti Ai</h1>
+          </div>
+          <div></div>
+        </div>
+
+        <menu className="grid-span-3">
+          <div>
+            <h4>
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </h4>
+          </div>
+          <div>
+            <h4>
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </h4>
+          </div>
+          <div>
+            <h4>
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </h4>
+          </div>
+        </menu>
       </footer>
-    </div>
+    </>
   );
 }
