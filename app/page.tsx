@@ -9,7 +9,7 @@ import videoAdd from "@/public/assets/images/video.svg";
 import firstBot from "@/public/assets/images/firstBot.png";
 import secondBot from "@/public/assets/images/secondBot.png";
 import thirdBot from "@/public/assets/images/thirdBot.png";
-// test
+
 export default function Home() {
   return (
     <>
