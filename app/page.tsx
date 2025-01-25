@@ -43,10 +43,11 @@ export default function Home() {
         alt="back"
         className="absolute top-52 right-0 left-0 m-auto -z-10 overflow-hidden"
       />
+      {/* for the extra empty space after the footer this image should change in size */}
       <Image
         src={gradiant2}
         alt="back"
-        className="absolute top-[1500px] right-0 left-0 m-auto -z-20 overflow-hidden"             
+        className="absolute top-[1500px] right-0 left-0 m-auto -z-20 overflow-hidden"                 
       />
 
       <main className="flex justify-center">
