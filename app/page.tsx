@@ -4,13 +4,12 @@ import gift from "@/public/assets/images/gift.svg";
 import hero from "@/public/assets/images/hero-4x.png";
 import filmIcon from "@/public/assets/images/film-icon.png";
 import pictureIcon from "@/public/assets/images/picture-icon.png";
-import galleryAdd from "@/public/assets/images/gallery-add.svg";
-import videoAdd from "@/public/assets/images/video.svg";
 import firstBot from "@/public/assets/images/firstBot.png";
 import secondBot from "@/public/assets/images/secondBot.png";
 import thirdBot from "@/public/assets/images/thirdBot.png";
 import gradiant1 from "@/public/assets/images/Ellipse 2.svg";
 import gradiant2 from "@/public/assets/images/Ellipse 3E.svg";
+import Tabs from "../components/Tabs";
 
 export default function Home() {
   return (
@@ -83,43 +82,8 @@ export default function Home() {
           {/* ai features */}
           <section className="w-full mt-20">
             <div className="bg-white p-[30px] flex flex-col">
-              <menu className="bg-[#F3F6F9]">
-                <ul className="flex justify-around h-[84px] items-center px-20">
-                  <li className="bg-[#041A43] text-white px-[30px] py-[10px] rounded-full">
-                    سینمایی سازی تصویر
-                  </li>
-                  <li>همگام سازی ویدیو</li>
-                  <li>ساخت کلیپ با افکت</li>
-                  <li>ساخت ویدیو سینمایی</li>
-                </ul>
-              </menu>
-              {/* upload section */}
-              <div className="mt-[52px] flex gap-4">
-                {/* image */}
-                <div className="flex-1 flex flex-col gap-4">
-                  <h6>انتخاب تصویر</h6>
-                  <div className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center">
-                    <Image src={galleryAdd} alt="logo" width={24} height={24} />
-                    <p className="text-[#767676]">بارگذاری تصویر</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <p>حداکثر حجم تصویر:</p>
-                    <p>20 مگابایت</p>
-                  </div>
-                </div>
-                {/* video */}
-                <div className="flex-1 flex flex-col gap-4">
-                  <h6>انتخاب ویدئو</h6>
-                  <div className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center">
-                    <Image src={videoAdd} alt="logo" width={24} height={24} />
-                    <p className="text-[#767676]">بارگذاری ویدیو</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <p>حداکثر حجم تصویر:</p>
-                    <p>200 مگابایت</p>
-                  </div>
-                </div>
-              </div>
+              <Tabs />
+              
               <button className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end ">
                 تولید ویدئو
               </button>
