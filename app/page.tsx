@@ -9,6 +9,8 @@ import videoAdd from "@/public/assets/images/video.svg";
 import firstBot from "@/public/assets/images/firstBot.png";
 import secondBot from "@/public/assets/images/secondBot.png";
 import thirdBot from "@/public/assets/images/thirdBot.png";
+import gradiant1 from "@/public/assets/images/Ellipse 2.svg";
+import gradiant2 from "@/public/assets/images/Ellipse 3E.svg";
 
 export default function Home() {
   return (
@@ -36,6 +38,18 @@ export default function Home() {
           </button>
         </div>
       </header>
+      {/* background gradiant */}
+      <Image
+        src={gradiant1}
+        alt="back"
+        className="absolute top-52 right-0 left-0 m-auto -z-10 overflow-hidden"
+      />
+      <Image
+        src={gradiant2}
+        alt="back"
+        className="absolute top-[1500px] right-0 left-0 m-auto -z-20 overflow-hidden"             
+      />
+
       <main className="flex justify-center">
         <div className="max-w-[1300px] w-full flex flex-col items-center">
           {/* hero */}
@@ -177,39 +191,32 @@ export default function Home() {
 
         <menu className="col-span-3 mt-[86px] flex gap-40 w-full">
           <div>
-            <h4 className="font-semibold text-[#212421] text-xl">
-            شرکت ما
-            </h4>
+            <h4 className="font-semibold text-[#212421] text-xl">شرکت ما</h4>
             <ul className="mt-10 flex flex-col gap-[30px]">
-                <li>مقالات</li>
-                <li>پادکست</li>
-                <li>مشاغل</li>
-                <li>اتاق اخبار</li>
-              </ul>
+              <li>مقالات</li>
+              <li>پادکست</li>
+              <li>مشاغل</li>
+              <li>اتاق اخبار</li>
+            </ul>
           </div>
           <div>
-            <h4 className="font-semibold text-[#212421] text-xl">
-            شرکت ما
-            </h4>
+            <h4 className="font-semibold text-[#212421] text-xl">شرکت ما</h4>
             <ul className="mt-10 flex flex-col gap-[30px]">
-                <li>مقالات</li>
-                <li>پادکست</li>
-                <li>مشاغل</li>
-                <li>اتاق اخبار</li>
-              </ul>
+              <li>مقالات</li>
+              <li>پادکست</li>
+              <li>مشاغل</li>
+              <li>اتاق اخبار</li>
+            </ul>
           </div>
           <div>
-            <h4 className="font-semibold text-[#212421] text-xl">
-            شرکت ما
-            </h4>
+            <h4 className="font-semibold text-[#212421] text-xl">شرکت ما</h4>
             <ul className="mt-10 flex flex-col gap-[30px]">
-                <li>مقالات</li>
-                <li>پادکست</li>
-                <li>مشاغل</li>
-                <li>اتاق اخبار</li>
-              </ul>
+              <li>مقالات</li>
+              <li>پادکست</li>
+              <li>مشاغل</li>
+              <li>اتاق اخبار</li>
+            </ul>
           </div>
-          
         </menu>
       </footer>
     </>
