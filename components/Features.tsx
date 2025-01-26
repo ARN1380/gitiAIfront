@@ -115,9 +115,23 @@ export default function Features({ activeTab }: { activeTab: number }) {
         console.error("Failed to fetch the example video");
       }
     } catch (error) {
-      console.error("An error occurred while fetching the example video:", error);
+      console.error(
+        "An error occurred while fetching the example video:",
+        error
+      );
     } finally {
       setIsProcessing(false);
+    }
+  };
+
+  const downloadVideo = () => {
+    if (fetchedVideo) {
+      const link = document.createElement("a");
+      link.href = fetchedVideo;
+      link.download = "example-video.mp4"; // Default name for the downloaded file
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
 
@@ -192,12 +206,32 @@ export default function Features({ activeTab }: { activeTab: number }) {
             </div>
           </div>
 
-          <button
-            className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
-            onClick={aiProcess}
-          >
-            تولید ویدئو
-          </button>
+          {/* Display the fetched video */}
+          {fetchedVideo ? (
+            <>
+              <div className="mt-8">
+                <h6 className="font-extrabold text-xl">ویدئو تولید شده:</h6>
+                <video
+                  src={fetchedVideo}
+                  controls
+                  className="border border-gray-300 rounded-lg max-h-[300px]"
+                />
+              </div>
+              <button
+                className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
+                onClick={downloadVideo}
+              >
+                دانلود ویدئو
+              </button>
+            </>
+          ) : (
+            <button
+              className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
+              onClick={aiProcess}
+            >
+              تولید ویدئو
+            </button>
+          )}
 
           {isProcessing && (
             <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40">
@@ -205,18 +239,6 @@ export default function Features({ activeTab }: { activeTab: number }) {
                 <Image src={starLoader} alt="loader" />
                 <Image src={inProcessText} alt="loader" />
               </div>
-            </div>
-          )}
-
-          {/* Display the fetched video */}
-          {fetchedVideo && (
-            <div className="mt-8">
-              <h6>ویدئو تولید شده:</h6>
-              <video
-                src={fetchedVideo}
-                controls
-                className="border border-gray-300 rounded-lg max-h-[300px]"
-              />
             </div>
           )}
         </>
