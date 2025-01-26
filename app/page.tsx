@@ -85,9 +85,7 @@ export default function Home() {
             <div className="bg-white p-[30px] flex flex-col">
               <Tabs />
               
-              <button className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end ">
-                تولید ویدئو
-              </button>
+              
             </div>
           </section>
           {/* texts */}
