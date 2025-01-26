@@ -9,14 +9,38 @@ export default function Features({ activeTab }: { activeTab: number }) {
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
+  const [uploadMessage, setUploadMessage] = useState<string>("");
 
-  const fileSelectorHandler = (e: React.ChangeEvent<any>) => {
+  const fileSelectorHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
-      setSelectedFile(undefined);
+      setSelectedFile(null);
       return;
     }
-    // selecting the first image
-    setSelectedFile(e.target.files[0]);
+
+    const file = e.target.files[0];
+    setSelectedFile(file);
+
+    // Automatically upload the file
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {      
+      const response = await fetch("http://localhost:4000/upload-image/", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUploadMessage(`Image uploaded successfully: ${data.filePath}`);
+      } else {
+        const errorData = await response.json();
+        setUploadMessage(`Error: ${errorData.error}`);
+      }
+    } catch (error) {
+      setUploadMessage("در فرایند بارگذاری عکس مشکلی رخ داده");
+      console.error(error)
+    }
   };
 
   // create a preview as a side effect, whenever selected file is changed
@@ -33,6 +57,9 @@ export default function Features({ activeTab }: { activeTab: number }) {
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
 
+
+
+// rendering
   switch (activeTab) {
     case 0:
       return (
@@ -64,7 +91,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
                     <p className="text-[#767676]">بارگذاری تصویر</p>
                   </>
                 )}
-              </div>
+              </div>                
               <div className="flex gap-2">
                 <p>حداکثر حجم تصویر:</p>
                 <p>20 مگابایت</p>
