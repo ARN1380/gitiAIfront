@@ -6,10 +6,9 @@ import videoAdd from "@/public/assets/images/video.svg";
 import inProcessText from "@/public/assets/images/inProcessText.png";
 import starLoader from "@/public/assets/images/starLoader.png";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Features({ activeTab }: { activeTab: number }) {
-
   const imageInputRef = useRef<HTMLInputElement | null>(null);
   const videoInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -18,10 +17,9 @@ export default function Features({ activeTab }: { activeTab: number }) {
   const [videoPreview, setVideoPreview] = useState<string | undefined>();
   const [uploadMessage, setUploadMessage] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-
+  const [fetchedVideo, setFetchedVideo] = useState<string | null>(null);
 
   const handleFileUpload = async (file: File, type: "image" | "video") => {
-
     const formData = new FormData();
     formData.append(type, file);
 
@@ -60,11 +58,9 @@ export default function Features({ activeTab }: { activeTab: number }) {
     const file = e.target.files[0];
     setSelectedImage(file);
 
-    // Create preview
     const objectUrl = URL.createObjectURL(file);
     setImagePreview(objectUrl);
 
-    // Free memory when unmounted
     return () => URL.revokeObjectURL(objectUrl);
   };
 
@@ -78,11 +74,9 @@ export default function Features({ activeTab }: { activeTab: number }) {
     const file = e.target.files[0];
     setSelectedVideo(file);
 
-    // Create preview
     const objectUrl = URL.createObjectURL(file);
     setVideoPreview(objectUrl);
 
-    // Free memory when unmounted
     return () => URL.revokeObjectURL(objectUrl);
   };
 
@@ -106,22 +100,25 @@ export default function Features({ activeTab }: { activeTab: number }) {
     setIsProcessing(true);
     await handleVideoUpload();
     await handleImageUpload();
-    
+
     try {
-      const response = await fetch("http://localhost:4000/example-image", {
-        method: "GET",      
+      // Fetch the example video
+      const response = await fetch("http://localhost:4000/example-video/", {
+        method: "GET",
       });
-      
-      if(response.ok){
-        console.log("AI Process started");
-        const data = await response.json();
-        await console.log(data);
-        
+
+      if (response.ok) {
+        const videoBlob = await response.blob();
+        const videoUrl = URL.createObjectURL(videoBlob);
+        setFetchedVideo(videoUrl);
+      } else {
+        console.error("Failed to fetch the example video");
       }
     } catch (error) {
-      
+      console.error("An error occurred while fetching the example video:", error);
+    } finally {
+      setIsProcessing(false);
     }
-
   };
 
   switch (activeTab) {
@@ -194,6 +191,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
               </div>
             </div>
           </div>
+
           <button
             className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
             onClick={aiProcess}
@@ -201,15 +199,26 @@ export default function Features({ activeTab }: { activeTab: number }) {
             تولید ویدئو
           </button>
 
-          {isProcessing && <>
-          <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40">
-
-            <div className="max-h-[446px] max-w-[331px] px-24 py-14 bg-white rounded-md flex flex-col items-center gap-[10px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-              <Image src={starLoader} alt="loader" />
-              <Image src={inProcessText} alt="loader" />
+          {isProcessing && (
+            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40">
+              <div className="max-h-[446px] max-w-[331px] px-24 py-14 bg-white rounded-md flex flex-col items-center gap-[10px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+                <Image src={starLoader} alt="loader" />
+                <Image src={inProcessText} alt="loader" />
+              </div>
             </div>
-          </div>
-          </>}
+          )}
+
+          {/* Display the fetched video */}
+          {fetchedVideo && (
+            <div className="mt-8">
+              <h6>ویدئو تولید شده:</h6>
+              <video
+                src={fetchedVideo}
+                controls
+                className="border border-gray-300 rounded-lg max-h-[300px]"
+              />
+            </div>
+          )}
         </>
       );
 
