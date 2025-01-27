@@ -10,11 +10,17 @@ import { useRef, useState } from "react";
 
 export default function Features({ activeTab }: { activeTab: number }) {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
-  const videoInputRef = useRef<HTMLInputElement | null>(null);
+  const videoInputRefSource = useRef<HTMLInputElement | null>(null);
+  const videoInputRefDriving = useRef<HTMLInputElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | undefined>();
-  const [videoPreview, setVideoPreview] = useState<string | undefined>();
+  const [videoPreviewSource, setVideoPreviewSource] = useState<
+    string | undefined
+  >();
+  const [videoPreviewDriving, setVideoPreviewDriving] = useState<
+    string | undefined
+  >();
   const [uploadMessage, setUploadMessage] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [fetchedVideo, setFetchedVideo] = useState<string | null>(null);
@@ -64,18 +70,29 @@ export default function Features({ activeTab }: { activeTab: number }) {
     return () => URL.revokeObjectURL(objectUrl);
   };
 
-  const handleVideoSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleVideoSelection = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: "source" | "driving"
+  ) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedVideo(null);
-      setVideoPreview(undefined);
+      setVideoPreviewSource(undefined);
+      setVideoPreviewDriving(undefined);
       return;
     }
-
-    const file = e.target.files[0];
-    setSelectedVideo(file);
-
-    const objectUrl = URL.createObjectURL(file);
-    setVideoPreview(objectUrl);
+    console.log(e.target.files[0]);
+    
+    if (type == "source") {
+      const file = e.target.files[0];
+      const objectUrl = URL.createObjectURL(file);
+      setSelectedVideo(file);
+      setVideoPreviewSource(objectUrl);
+    } else if (type == "driving") {
+      const file = e.target.files[0];
+      const objectUrl = URL.createObjectURL(file);
+      setSelectedVideo(file);
+      setVideoPreviewDriving(objectUrl);
+    }
 
     return () => URL.revokeObjectURL(objectUrl);
   };
@@ -175,19 +192,19 @@ export default function Features({ activeTab }: { activeTab: number }) {
               <h6>انتخاب ویدئو</h6>
               <div
                 className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center cursor-pointer"
-                onClick={() => videoInputRef.current?.click()}
+                onClick={() => videoInputRefSource.current?.click()}
               >
                 <input
                   accept="video/*"
                   type="file"
                   className="hidden"
-                  ref={videoInputRef}
+                  ref={videoInputRefSource}
                   onChange={handleVideoSelection}
                 />
 
-                {selectedVideo && videoPreview ? (
+                {selectedVideo && videoPreviewSource ? (
                   <video
-                    src={videoPreview}
+                    src={videoPreviewSource}
                     controls
                     className="max-h-[300px]"
                   />
@@ -243,7 +260,123 @@ export default function Features({ activeTab }: { activeTab: number }) {
           )}
         </>
       );
+    case 1:
+      return (
+        <>
+          <div className="mt-[52px] flex gap-4">
+            {/* video Upload Section source */}
 
+            <div className="flex-1 flex flex-col gap-4">
+              <h6>انتخاب ویدئو</h6>
+              <div
+                className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center cursor-pointer"
+                onClick={() => videoInputRefSource.current?.click()}
+              >
+                <input
+                  accept="video/*"
+                  type="file"
+                  className="hidden"
+                  ref={videoInputRefSource}
+                  onChange={(e) => {
+                    handleVideoSelection(e, "source");
+                  }}
+                />
+
+                {selectedVideo && videoPreviewSource ? (
+                  <video
+                    src={videoPreviewSource}
+                    controls
+                    className="max-h-[300px]"
+                  />
+                ) : (
+                  <>
+                    <Image src={videoAdd} alt="logo" width={24} height={24} />
+                    <p className="text-[#767676]">بارگذاری ویدیو</p>
+                  </>
+                )}
+              </div>
+
+              <div className="flex gap-2">
+                <p>حداکثر حجم ویدیو:</p>
+                <p>200 مگابایت</p>
+              </div>
+            </div>
+
+            {/* Video Upload Section driving */}
+            <div className="flex-1 flex flex-col gap-4">
+              <h6>انتخاب ویدئو</h6>
+              <div
+                className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center cursor-pointer"
+                onClick={() => videoInputRefDriving.current?.click()}
+              >
+                <input
+                  accept="video/*"
+                  type="file"
+                  className="hidden"
+                  ref={videoInputRefDriving}
+                  onChange={(e) => {
+                    handleVideoSelection(e, "driving");
+                  }}
+                />
+
+                {selectedVideo && videoPreviewDriving ? (
+                  <video
+                    src={videoPreviewDriving}
+                    controls
+                    className="max-h-[300px]"
+                  />
+                ) : (
+                  <>
+                    <Image src={videoAdd} alt="logo" width={24} height={24} />
+                    <p className="text-[#767676]">بارگذاری ویدیو</p>
+                  </>
+                )}
+              </div>
+
+              <div className="flex gap-2">
+                <p>حداکثر حجم ویدیو:</p>
+                <p>200 مگابایت</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Display the fetched video */}
+          {fetchedVideo ? (
+            <>
+              <div className="mt-8">
+                <h6 className="font-extrabold text-xl">ویدئو تولید شده:</h6>
+                <video
+                  src={fetchedVideo}
+                  controls
+                  className="border border-gray-300 rounded-lg max-h-[300px]"
+                />
+              </div>
+              <button
+                className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
+                onClick={downloadVideo}
+              >
+                دانلود ویدئو
+              </button>
+            </>
+          ) : (
+            <button
+              className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
+              onClick={aiProcess}
+            >
+              تولید ویدئو
+            </button>
+          )}
+
+          {isProcessing && (
+            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40">
+              <div className="max-h-[446px] max-w-[331px] px-24 py-14 bg-white rounded-md flex flex-col items-center gap-[10px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+                <Image src={starLoader} alt="loader" />
+                <Image src={inProcessText} alt="loader" />
+              </div>
+            </div>
+          )}
+        </>
+      );
     default:
       return null;
   }
