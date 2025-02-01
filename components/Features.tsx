@@ -7,6 +7,7 @@ import inProcessText from "@/public/assets/images/inProcessText.png";
 import starLoader from "@/public/assets/images/starLoader.png";
 
 import { useRef, useState } from "react";
+import Avatars from "./Avatars";
 
 export default function Features({ activeTab }: { activeTab: number }) {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
@@ -81,15 +82,14 @@ export default function Features({ activeTab }: { activeTab: number }) {
       return;
     }
     console.log(e.target.files[0]);
-    
+    const file = e.target.files[0];
+    const objectUrl = URL.createObjectURL(file);
+
     if (type == "source") {
-      const file = e.target.files[0];
-      const objectUrl = URL.createObjectURL(file);
+      console.log("source");
       setSelectedVideo(file);
       setVideoPreviewSource(objectUrl);
     } else if (type == "driving") {
-      const file = e.target.files[0];
-      const objectUrl = URL.createObjectURL(file);
       setSelectedVideo(file);
       setVideoPreviewDriving(objectUrl);
     }
@@ -199,12 +199,14 @@ export default function Features({ activeTab }: { activeTab: number }) {
                   type="file"
                   className="hidden"
                   ref={videoInputRefSource}
-                  onChange={handleVideoSelection}
+                  onChange={(e) => {
+                    handleVideoSelection(e, "driving");
+                  }}
                 />
 
-                {selectedVideo && videoPreviewSource ? (
+                {selectedVideo && videoPreviewDriving ? (
                   <video
-                    src={videoPreviewSource}
+                    src={videoPreviewDriving}
                     controls
                     className="max-h-[300px]"
                   />
@@ -223,7 +225,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
             </div>
           </div>
 
-          {/* Display the fetched video */}
+          {/* Display the AI generated Video */}
           {fetchedVideo ? (
             <>
               <div className="mt-8">
@@ -340,7 +342,177 @@ export default function Features({ activeTab }: { activeTab: number }) {
             </div>
           </div>
 
-          {/* Display the fetched video */}
+          {/* Display the AI generated Video */}
+          {fetchedVideo ? (
+            <>
+              <div className="mt-8">
+                <h6 className="font-extrabold text-xl">ویدئو تولید شده:</h6>
+                <video
+                  src={fetchedVideo}
+                  controls
+                  className="border border-gray-300 rounded-lg max-h-[300px]"
+                />
+              </div>
+              <button
+                className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
+                onClick={downloadVideo}
+              >
+                دانلود ویدئو
+              </button>
+            </>
+          ) : (
+            <button
+              className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
+              onClick={aiProcess}
+            >
+              تولید ویدئو
+            </button>
+          )}
+
+          {isProcessing && (
+            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40">
+              <div className="max-h-[446px] max-w-[331px] px-24 py-14 bg-white rounded-md flex flex-col items-center gap-[10px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+                <Image src={starLoader} alt="loader" />
+                <Image src={inProcessText} alt="loader" />
+              </div>
+            </div>
+          )}
+        </>
+      );
+    case 2:
+      return (
+        <>
+          <div className="mt-[52px] flex gap-4">
+            {/* Image Upload Section */}
+            <div className="flex-1 flex flex-col gap-4">
+              <h6>انتخاب تصویر</h6>
+              <div
+                className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center cursor-pointer"
+                onClick={() => imageInputRef.current?.click()}
+              >
+                <input
+                  accept="image/*"
+                  type="file"
+                  className="hidden"
+                  ref={imageInputRef}
+                  onChange={handleImageSelection}
+                />
+
+                {selectedImage && imagePreview ? (
+                  <img src={imagePreview} alt="user image" />
+                ) : (
+                  <>
+                    <Image src={galleryAdd} alt="logo" width={24} height={24} />
+                    <p className="text-[#767676]">بارگذاری تصویر</p>
+                  </>
+                )}
+              </div>
+              <div className="flex gap-2">
+                <p>حداکثر حجم تصویر:</p>
+                <p>20 مگابایت</p>
+              </div>
+            </div>
+
+            {/* Emotion selection Section */}
+            <div className="flex-1 flex flex-col gap-4">
+              <h6>انتخاب کنید</h6>
+              <div className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center justify-center">
+                <Avatars />
+              </div>              
+            </div>
+          </div>
+
+          {/* Display the AI generated Video */}
+          {fetchedVideo ? (
+            <>
+              <div className="mt-8">
+                <h6 className="font-extrabold text-xl">ویدئو تولید شده:</h6>
+                <video
+                  src={fetchedVideo}
+                  controls
+                  className="border border-gray-300 rounded-lg max-h-[300px]"
+                />
+              </div>
+              <button
+                className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
+                onClick={downloadVideo}
+              >
+                دانلود ویدئو
+              </button>
+            </>
+          ) : (
+            <button
+              className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
+              onClick={aiProcess}
+            >
+              تولید ویدئو
+            </button>
+          )}
+
+          {isProcessing && (
+            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40">
+              <div className="max-h-[446px] max-w-[331px] px-24 py-14 bg-white rounded-md flex flex-col items-center gap-[10px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+                <Image src={starLoader} alt="loader" />
+                <Image src={inProcessText} alt="loader" />
+              </div>
+            </div>
+          )}
+        </>
+      );
+    case 3:
+      return (
+        <>
+          <div className="mt-[52px] flex gap-4">
+            {/* Image Upload Section */}
+            <div className="flex-1 flex flex-col gap-4">
+              <h6>انتخاب ویدئو</h6>
+              <div
+                className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center cursor-pointer"
+                onClick={() => videoInputRefSource.current?.click()}
+              >
+                <input
+                  accept="video/*"
+                  type="file"
+                  className="hidden"
+                  ref={videoInputRefSource}
+                  onChange={(e) => {
+                    handleVideoSelection(e, "source");
+                  }}
+                />
+
+                {selectedVideo && videoPreviewSource ? (
+                  <video
+                    src={videoPreviewSource}
+                    controls
+                    className="max-h-[300px]"
+                  />
+                ) : (
+                  <>
+                    <Image src={videoAdd} alt="logo" width={24} height={24} />
+                    <p className="text-[#767676]">بارگذاری ویدیو</p>
+                  </>
+                )}
+              </div>
+
+              <div className="flex gap-2">
+                <p>حداکثر حجم ویدیو:</p>
+                <p>200 مگابایت</p>
+              </div>
+            </div>
+
+            {/* Emotion selection Section */}
+            <div className="flex-1 flex flex-col gap-4">
+              <h6>انتخاب کنید</h6>
+              <div
+                className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center"                
+              >
+                <Avatars />
+              </div>
+
+            </div>
+          </div>
+
+          {/* Display the AI generated Video */}
           {fetchedVideo ? (
             <>
               <div className="mt-8">
