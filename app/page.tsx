@@ -14,29 +14,7 @@ import Tabs from "../components/Tabs";
 export default function Home() {
   return (
     <>
-      <header className="h-[75px] flex items-center justify-center bg-[#fff] shadow-sm">
-        <div className="max-w-[1300px] w-full flex items-center gap-[60px]">
-          <div className="flex items-center gap-[10px]">
-            <Image src={icon} alt="logo" width={60} height={45} />
-            <h1 className="font-bold text-2xl text-[#332C2B]">Giti Ai</h1>
-          </div>
-          <menu className=" flex justify-between flex-1">
-            <ul className="flex gap-10 font-bold text-[#191925]">
-              <li>کشف هوش مصنوعی</li>
-              <li>کاتالوگ</li>
-              <li>مقالات</li>
-            </ul>
-            <ul className="flex gap-10 text-[#787878]">
-              <li>درباره ما</li>
-              <li>قیمت</li>
-            </ul>
-          </menu>
-          <button className="flex gap-4 bg-[#FEF6F2] rounded-full h-10 w-[186px] items-center justify-center">
-            <p>رایگان ثبت نام کن</p>
-            <Image src={gift} alt="logo" width={16} height={16} />
-          </button>
-        </div>
-      </header>
+      
       {/* background gradiant */}
       <Image
         src={gradiant1}
@@ -142,46 +120,7 @@ export default function Home() {
           </section>
         </div>
       </main>
-
-      <footer className="min-h-[387px] grid grid-cols-4 bg-white shadow-sm">
-        <div className="col-span-1 flex flex-col items-center ">
-          <div className="flex gap-[10px] items-center mt-[91px]">
-            <Image src={icon} alt="logo" width={60} height={45} />
-            <h1 className="font-bold text-2xl text-[#332C2B]">Giti Ai</h1>
-          </div>
-          <div></div>
-        </div>
-
-        <menu className="col-span-3 mt-[86px] flex gap-40 w-full">
-          <div>
-            <h4 className="font-semibold text-[#212421] text-xl">شرکت ما</h4>
-            <ul className="mt-10 flex flex-col gap-[30px]">
-              <li>مقالات</li>
-              <li>پادکست</li>
-              <li>مشاغل</li>
-              <li>اتاق اخبار</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold text-[#212421] text-xl">شرکت ما</h4>
-            <ul className="mt-10 flex flex-col gap-[30px]">
-              <li>مقالات</li>
-              <li>پادکست</li>
-              <li>مشاغل</li>
-              <li>اتاق اخبار</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold text-[#212421] text-xl">شرکت ما</h4>
-            <ul className="mt-10 flex flex-col gap-[30px]">
-              <li>مقالات</li>
-              <li>پادکست</li>
-              <li>مشاغل</li>
-              <li>اتاق اخبار</li>
-            </ul>
-          </div>
-        </menu>
-      </footer>
+      
     </>
   );
 }
