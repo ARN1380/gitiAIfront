@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="min-h-[387px] grid grid-cols-4 bg-white shadow-sm">
       <div className="col-span-1 flex flex-col items-center justify-between">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-[30px]">
           <div className="flex gap-[10px] items-center mt-[91px]">
             <Image src={icon} alt="logo" width={60} height={45} />
             <h1 className="font-bold text-2xl text-[#332C2B]">Giti Ai</h1>
