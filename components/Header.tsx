@@ -4,7 +4,7 @@ import gift from "@/public/assets/images/gift.svg";
 
 export default function Header() {
   return (
-    <header className="h-[75px] flex items-center justify-center bg-[#fff] shadow-sm">
+    <header className="h-[75px] flex items-center justify-center bg-[#fff] shadow-sm sticky top-0">
         <div className="max-w-[1300px] w-full flex items-center gap-[60px]">
           <div className="flex items-center gap-[10px]">
             <Image src={icon} alt="logo" width={60} height={45} />
