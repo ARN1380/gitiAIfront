@@ -10,11 +10,23 @@ import thirdBot from "@/public/assets/images/thirdBot.png";
 import gradiant1 from "@/public/assets/images/Ellipse 2.svg";
 import gradiant2 from "@/public/assets/images/Ellipse 3E.svg";
 import Tabs from "../components/Tabs";
+import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   return (
     <>
-      
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick={true}
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"        
+      />
       {/* background gradiant */}
       <Image
         src={gradiant1}
@@ -25,7 +37,7 @@ export default function Home() {
       <Image
         src={gradiant2}
         alt="back"
-        className="absolute top-[1500px] right-0 left-0 m-auto -z-20 overflow-hidden"                 
+        className="absolute top-[1500px] right-0 left-0 m-auto -z-20 overflow-hidden"
       />
 
       <main className="flex justify-center">
@@ -62,8 +74,6 @@ export default function Home() {
           <section className="w-full mt-20">
             <div className="bg-white p-[30px] flex flex-col">
               <Tabs />
-              
-              
             </div>
           </section>
           {/* texts */}
@@ -120,7 +130,6 @@ export default function Home() {
           </section>
         </div>
       </main>
-      
     </>
   );
 }

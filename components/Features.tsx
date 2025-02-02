@@ -8,6 +8,7 @@ import starLoader from "@/public/assets/images/starLoader.png";
 
 import { useRef, useState } from "react";
 import Avatars from "./Avatars";
+import { toast } from "react-toastify";
 
 export default function Features({ activeTab }: { activeTab: number }) {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
@@ -25,6 +26,8 @@ export default function Features({ activeTab }: { activeTab: number }) {
   const [uploadMessage, setUploadMessage] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [fetchedVideo, setFetchedVideo] = useState<string | null>(null);
+
+  const notify = () => toast("Wow so easy !");
 
   const handleFileUpload = async (file: File, type: "image" | "video") => {
     const formData = new FormData();
@@ -114,6 +117,10 @@ export default function Features({ activeTab }: { activeTab: number }) {
   };
 
   const aiProcess = async () => {
+    if (!selectedImage || !selectedVideo) {
+      notify()
+      return null;
+    }
     setIsProcessing(true);
     await handleVideoUpload();
     await handleImageUpload();
@@ -246,7 +253,9 @@ export default function Features({ activeTab }: { activeTab: number }) {
           ) : (
             <button
               className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
-              onClick={aiProcess}
+              onClick={() => {
+                aiProcess();
+              }}
             >
               تولید ویدئو
             </button>
@@ -418,7 +427,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
               <h6>انتخاب کنید</h6>
               <div className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center justify-center">
                 <Avatars />
-              </div>              
+              </div>
             </div>
           </div>
 
@@ -503,12 +512,9 @@ export default function Features({ activeTab }: { activeTab: number }) {
             {/* Emotion selection Section */}
             <div className="flex-1 flex flex-col gap-4">
               <h6>انتخاب کنید</h6>
-              <div
-                className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center"                
-              >
+              <div className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center">
                 <Avatars />
               </div>
-
             </div>
           </div>
 
