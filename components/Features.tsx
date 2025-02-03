@@ -9,6 +9,7 @@ import starLoader from "@/public/assets/images/starLoader.png";
 import { useRef, useState } from "react";
 import Avatars from "./Avatars";
 import { toast } from "react-toastify";
+import ImageToVideo from "./tabFeatures/ImageToVideo";
 
 export default function Features({ activeTab }: { activeTab: number }) {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
@@ -27,18 +28,32 @@ export default function Features({ activeTab }: { activeTab: number }) {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [fetchedVideo, setFetchedVideo] = useState<string | null>(null);
 
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+
+  const handleVideoUrl = (url: string) => {
+    setVideoUrl(url);
+  };
+
   const notify = () => toast("Wow so easy !");
 
   const handleFileUpload = async (file: File, type: "image" | "video") => {
     const formData = new FormData();
-    formData.append(type, file);
+    // formData.append(type, file);
+    if (type === "video") {
+      formData.append("driving_video", file);
+    } else if (type === "image") {
+      formData.append("source_image", file);
+    }
 
     const endpoint = type === "image" ? "upload-image" : "upload-video";
 
     try {
-      const response = await fetch(`http://localhost:4000/${endpoint}`, {
+      const response = await fetch("http://localhost:8000/api/process_video", {
         method: "POST",
         body: formData,
+        headers: {
+          Accept: "application/json",
+        },
       });
 
       if (response.ok) {
@@ -54,6 +69,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
       }
     } catch (error) {
       setUploadMessage(`An error occurred while uploading the ${type}.`);
+
       console.error(error);
     }
   };
@@ -118,7 +134,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
 
   const aiProcess = async () => {
     if (!selectedImage || !selectedVideo) {
-      notify()
+      notify();
       return null;
     }
     setIsProcessing(true);
@@ -163,82 +179,14 @@ export default function Features({ activeTab }: { activeTab: number }) {
     case 0:
       return (
         <>
-          <div className="mt-[52px] flex gap-4">
-            {/* Image Upload Section */}
-            <div className="flex-1 flex flex-col gap-4">
-              <h6>انتخاب تصویر</h6>
-              <div
-                className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center cursor-pointer"
-                onClick={() => imageInputRef.current?.click()}
-              >
-                <input
-                  accept="image/*"
-                  type="file"
-                  className="hidden"
-                  ref={imageInputRef}
-                  onChange={handleImageSelection}
-                />
+          <ImageToVideo onVideoUrlChange={handleVideoUrl} setIsProcessing={setIsProcessing} />
 
-                {selectedImage && imagePreview ? (
-                  <img src={imagePreview} alt="user image" />
-                ) : (
-                  <>
-                    <Image src={galleryAdd} alt="logo" width={24} height={24} />
-                    <p className="text-[#767676]">بارگذاری تصویر</p>
-                  </>
-                )}
-              </div>
-              <div className="flex gap-2">
-                <p>حداکثر حجم تصویر:</p>
-                <p>20 مگابایت</p>
-              </div>
-            </div>
-
-            {/* Video Upload Section */}
-            <div className="flex-1 flex flex-col gap-4">
-              <h6>انتخاب ویدئو</h6>
-              <div
-                className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center cursor-pointer"
-                onClick={() => videoInputRefSource.current?.click()}
-              >
-                <input
-                  accept="video/*"
-                  type="file"
-                  className="hidden"
-                  ref={videoInputRefSource}
-                  onChange={(e) => {
-                    handleVideoSelection(e, "driving");
-                  }}
-                />
-
-                {selectedVideo && videoPreviewDriving ? (
-                  <video
-                    src={videoPreviewDriving}
-                    controls
-                    className="max-h-[300px]"
-                  />
-                ) : (
-                  <>
-                    <Image src={videoAdd} alt="logo" width={24} height={24} />
-                    <p className="text-[#767676]">بارگذاری ویدیو</p>
-                  </>
-                )}
-              </div>
-
-              <div className="flex gap-2">
-                <p>حداکثر حجم ویدیو:</p>
-                <p>200 مگابایت</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Display the AI generated Video */}
-          {fetchedVideo ? (
+          {videoUrl ? (
             <>
               <div className="mt-8">
                 <h6 className="font-extrabold text-xl">ویدئو تولید شده:</h6>
                 <video
-                  src={fetchedVideo}
+                  src={videoUrl}
                   controls
                   className="border border-gray-300 rounded-lg max-h-[300px]"
                 />
