@@ -4,14 +4,13 @@ import galleryAdd from "@/public/assets/images/gallery-add.svg";
 import videoAdd from "@/public/assets/images/video.svg";
 
 interface ImageToVideoProps {
-  onVideoUrlChange: (url: string) => void;  
+  onVideoUrlChange: (url: string) => void;
   setIsProcessing: React.Dispatch<React.SetStateAction<boolean>>;
-
 }
 
 const ImageToVideo: React.FC<ImageToVideoProps> = ({
   onVideoUrlChange,
-  setIsProcessing
+  setIsProcessing,
 }) => {
   const [sourceImage, setSourceImage] = useState<File | null>(null);
   const [drivingVideo, setDrivingVideo] = useState<File | null>(null);
@@ -24,8 +23,9 @@ const ImageToVideo: React.FC<ImageToVideoProps> = ({
     if (videoUrl) {
       onVideoUrlChange(videoUrl);
       setIsProcessing(false);
+      console.log("set processing to False");
     }
-  }, [videoUrl, onVideoUrlChange]);
+  }, [videoUrl]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -44,8 +44,9 @@ const ImageToVideo: React.FC<ImageToVideoProps> = ({
       alert("Please select both an image and a video.");
       return;
     }
-    
+
     setIsProcessing(true);
+    console.log("set processing to true");
     const formData = new FormData();
     formData.append("source_image", sourceImage);
     formData.append("driving_video", drivingVideo);
@@ -72,7 +73,6 @@ const ImageToVideo: React.FC<ImageToVideoProps> = ({
   };
 
   return (
-
     <>
       <div className="mt-[52px] flex gap-4">
         {/* Image Upload Section */}
