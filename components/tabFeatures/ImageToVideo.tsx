@@ -22,8 +22,7 @@ const ImageToVideo: React.FC<ImageToVideoProps> = ({
   useEffect(() => {
     if (videoUrl) {
       onVideoUrlChange(videoUrl);
-      setIsProcessing(false);
-      console.log("set processing to False");
+      setIsProcessing(false);      
     }
   }, [videoUrl]);
 
@@ -45,8 +44,7 @@ const ImageToVideo: React.FC<ImageToVideoProps> = ({
       return;
     }
 
-    setIsProcessing(true);
-    console.log("set processing to true");
+    setIsProcessing(true);    
     const formData = new FormData();
     formData.append("source_image", sourceImage);
     formData.append("driving_video", drivingVideo);
