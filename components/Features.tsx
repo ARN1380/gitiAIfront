@@ -34,7 +34,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
     setVideoUrl(url);
   };
 
-  const notify = () => toast("Wow so easy !");
+  const notify = () => toast("فایل ها را به صورت صحیح بارگذاری کنید!");
 
   const handleFileUpload = async (file: File, type: "image" | "video") => {
     const formData = new FormData();
@@ -164,12 +164,17 @@ export default function Features({ activeTab }: { activeTab: number }) {
     }
   };
 
-  const downloadVideo = () => {
-    if (fetchedVideo) {
+  const downloadVideo = () => {    
+    
+    if (videoUrl) {
       const link = document.createElement("a");
-      link.href = fetchedVideo;
+      videoUrl.replace("blob:", "");
+      link.href = videoUrl;
+      console.log(videoUrl);
       link.download = "example-video.mp4"; // Default name for the downloaded file
       document.body.appendChild(link);
+      console.log(link);
+      
       link.click();
       document.body.removeChild(link);
     }
@@ -181,7 +186,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
         <>
           <ImageToVideo onVideoUrlChange={handleVideoUrl} setIsProcessing={setIsProcessing} />
 
-          {videoUrl ? (
+          {videoUrl && (
             <>
               <div className="mt-8">
                 <h6 className="font-extrabold text-xl">ویدئو تولید شده:</h6>
@@ -198,15 +203,6 @@ export default function Features({ activeTab }: { activeTab: number }) {
                 دانلود ویدئو
               </button>
             </>
-          ) : (
-            <button
-              className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
-              onClick={() => {
-                aiProcess();
-              }}
-            >
-              تولید ویدئو
-            </button>
           )}
 
           {isProcessing && (
