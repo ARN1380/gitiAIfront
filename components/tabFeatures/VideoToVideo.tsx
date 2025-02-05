@@ -97,8 +97,8 @@ const VideoToVideo: React.FC<VideoToVideoProps> = ({
             />
             ) : (
               <>
-                <Image src={galleryAdd} alt="logo" width={24} height={24} />
-                <p className="text-[#767676]">بارگذاری تصویر</p>
+                <Image src={videoAdd} alt="logo" width={24} height={24} />
+                <p className="text-[#767676]">بارگذاری ویدیو</p>
               </>
             )}
           </div>
