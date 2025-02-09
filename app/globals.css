@@ -14,25 +14,32 @@
   }
 
   .animate-myFade-1 {
-    animation: myFade 3s ease-in-out infinite 1s;
+    animation: myFade 1.5s infinite;
+    animation-delay: 0s;
   }
   .animate-myFade-2 {
-    animation: myFade 3s ease-in-out infinite 2s;
+    animation: myFade 1.5s infinite;
+    animation-delay: 1s;
   }
   .animate-myFade-3 {
-    animation: myFade 3s ease-in-out infinite 3s;
+    animation: myFade 1.5s infinite;
+    animation-delay: 2s;
   }
   .animate-myFade-4 {
-    animation: myFade 3s ease-in-out infinite 4s;
+    animation: myFade 1.5s infinite;
+    animation-delay: 3s;
   }
   .animate-myFade-5 {
-    animation: myFade 3s ease-in-out infinite 5s;
+    animation: myFade 1.5s infinite;
+    animation-delay: 4s;
   }
   .animate-myFade-6 {
-    animation: myFade 3s ease-in-out infinite 6s;
+    animation: myFade 1.5s infinite;
+    animation-delay: 5s;
   }
   .animate-myFade-7 {
-    animation: myFade 3s ease-in-out infinite 7s;
+    animation: myFade 1.5s infinite;
+    animation-delay: 6s;
   }
 }
 

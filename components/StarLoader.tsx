@@ -21,32 +21,32 @@ export default function StarLoader() {
           <Image
             src={property2}
             alt="loader"
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-myFade-2"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-myFade-2 opacity-0"
           />
           <Image
             src={property3}
             alt="loader"
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-myFade-3"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-myFade-3 opacity-0"
           />
           <Image
             src={property4}
             alt="loader"
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-myFade-4"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-myFade-4 opacity-0"
           />
           <Image
             src={property5}
             alt="loader"
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-myFade-5"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-myFade-5 opacity-0"
           />
           <Image
             src={property6}
             alt="loader"
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-myFade-6"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-myFade-6 opacity-0"
           />
           <Image
             src={property7}
             alt="loader"
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-myFade-7"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-myFade-7 opacity-0"
           />
         </div>
         <Image src={inProcessText} alt="loader" />
