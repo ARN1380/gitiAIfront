@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import galleryAdd from "@/public/assets/images/gallery-add.svg";
 import videoAdd from "@/public/assets/images/video.svg";
 
 interface VideoToVideoProps {
@@ -103,8 +102,8 @@ const VideoToVideo: React.FC<VideoToVideoProps> = ({
             )}
           </div>
           <div className="flex gap-2">
-            <p>حداکثر حجم تصویر:</p>
-            <p>20 مگابایت</p>
+            <p>حداکثر حجم ویدیو:</p>
+            <p>200 مگابایت</p>
           </div>
         </div>
 
