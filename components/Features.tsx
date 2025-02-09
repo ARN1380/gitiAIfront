@@ -3,14 +3,13 @@
 import Image from "next/image";
 import galleryAdd from "@/public/assets/images/gallery-add.svg";
 import videoAdd from "@/public/assets/images/video.svg";
-import inProcessText from "@/public/assets/images/inProcessText.png";
-import starLoader from "@/public/assets/images/starLoader.png";
 
 import { useRef, useState } from "react";
 import Avatars from "./Avatars";
 import { toast } from "react-toastify";
 import ImageToVideo from "./tabFeatures/ImageToVideo";
 import VideoToVideo from "./tabFeatures/VideoToVideo";
+import StarLoader from "./StarLoader";
 
 export default function Features({ activeTab }: { activeTab: number }) {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
@@ -208,14 +207,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
             </>
           )}
 
-          {isProcessing && (
-            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40">
-              <div className="max-h-[446px] max-w-[331px] px-24 py-14 bg-white rounded-md flex flex-col items-center gap-[10px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-                <Image src={starLoader} alt="loader" />
-                <Image src={inProcessText} alt="loader" />
-              </div>
-            </div>
-          )}
+          {isProcessing && <StarLoader />}
         </>
       );
     case 1:
@@ -245,14 +237,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
             </>
           )}
 
-          {isProcessing && (
-            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40">
-              <div className="max-h-[446px] max-w-[331px] px-24 py-14 bg-white rounded-md flex flex-col items-center gap-[10px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-                <Image src={starLoader} alt="loader" />
-                <Image src={inProcessText} alt="loader" />
-              </div>
-            </div>
-          )}
+          {isProcessing && <StarLoader />}
         </>
       );
     case 2:
@@ -325,14 +310,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
             </button>
           )}
 
-          {isProcessing && (
-            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40">
-              <div className="max-h-[446px] max-w-[331px] px-24 py-14 bg-white rounded-md flex flex-col items-center gap-[10px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-                <Image src={starLoader} alt="loader" />
-                <Image src={inProcessText} alt="loader" />
-              </div>
-            </div>
-          )}
+          {isProcessing && <StarLoader />}
         </>
       );
     case 3:
@@ -412,14 +390,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
             </button>
           )}
 
-          {isProcessing && (
-            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40">
-              <div className="max-h-[446px] max-w-[331px] px-24 py-14 bg-white rounded-md flex flex-col items-center gap-[10px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-                <Image src={starLoader} alt="loader" />
-                <Image src={inProcessText} alt="loader" />
-              </div>
-            </div>
-          )}
+          {isProcessing && <StarLoader />}
         </>
       );
     default:

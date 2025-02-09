@@ -2,8 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  @keyframes myFade {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .animate-myFade-1 {
+    animation: myFade 3s ease-in-out infinite 1s;
+  }
+  .animate-myFade-2 {
+    animation: myFade 3s ease-in-out infinite 2s;
+  }
+  .animate-myFade-3 {
+    animation: myFade 3s ease-in-out infinite 3s;
+  }
+  .animate-myFade-4 {
+    animation: myFade 3s ease-in-out infinite 4s;
+  }
+  .animate-myFade-5 {
+    animation: myFade 3s ease-in-out infinite 5s;
+  }
+  .animate-myFade-6 {
+    animation: myFade 3s ease-in-out infinite 6s;
+  }
+  .animate-myFade-7 {
+    animation: myFade 3s ease-in-out infinite 7s;
+  }
+}
+
 :root {
-  --background: #F7F9FF;
+  --background: #f7f9ff;
   --foreground: #4b5563;
   direction: rtl;
 }
@@ -20,4 +54,3 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
-
