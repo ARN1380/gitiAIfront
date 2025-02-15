@@ -29,11 +29,11 @@ export default function ImageRetargeting({
       console.log("no image is selected");
       setSelectedImage(null);
       setImagePreviewSrc(undefined);
-      toast("عکس را به درستی انتخاب کنید!")
+      toast("عکس را به درستی انتخاب کنید!");
       return;
     }
     console.log(e.target.files[0]);
-    
+
     const file = e.target.files[0];
     setSelectedImage(file);
 
@@ -48,19 +48,54 @@ export default function ImageRetargeting({
       toast("عکس به صورت صحیح بارگزاری نشده!");
       return null;
     }
-    fetchData(selectedImage, "smile");
+    switch (mood) {
+      case "sad":
+        //
+        fetchData(selectedImage, "expression2", "4");
+        break;
+      case "happy":
+        //
+        fetchData(selectedImage, "expression1", "0.8");
+        break;
+      case "suprise":
+        //
+        fetchData(selectedImage, "expression6", "3");
+        break;
+      case "wink":
+        fetchData(selectedImage, "eyebrow", "22");
+        break;
+      case "angry":
+        //
+        fetchData(selectedImage, "expression4", "3");
+        break;
+      case "smile":
+        //
+        fetchData(selectedImage, "smile", "1.2");
+        break;
+      case "disgust":
+        //
+        fetchData(selectedImage, "expression5", "3");
+        break;
+      case "scared":
+        //
+        fetchData(selectedImage, "expression3", "2");
+        break;
+
+      default:
+        break;
+    }
   };
 
-  const fetchData = async (file: File, mood?: string) => {
+  const fetchData = async (file: File, mood: string, strength: string) => {
     const formData = new FormData();
 
     formData.append("input_image", file);
-    formData.append("smile", "2");
-    
+    formData.append(mood, strength);
+
     for (const [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
-  
+
     isProcessing(true);
 
     try {
@@ -135,7 +170,7 @@ export default function ImageRetargeting({
         className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
         onClick={moodSelector}
       >
-        تولید ویدئو
+        تولید تصویر
       </button>
     </>
   );

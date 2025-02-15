@@ -28,10 +28,10 @@ export default function Avatars({
     { image: Avatar1, mood: "sad" },
     { image: Avatar2, mood: "happy" },
     { image: Avatar3, mood: "suprise" },
-    { image: Avatar4, mood: "stress" },
+    { image: Avatar4, mood: "wink" },
     { image: Avatar5, mood: "angry" },
     { image: Avatar6, mood: "smile" },
-    { image: Avatar7, mood: "cry" },
+    { image: Avatar7, mood: "disgust" },
     { image: Avatar8, mood: "scared" },
   ];
 
