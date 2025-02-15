@@ -29,6 +29,9 @@ export default function Features({ activeTab }: { activeTab: number }) {
   const [fetchedVideo, setFetchedVideo] = useState<string | null>(null);
 
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  const [mood, setMood] = useState<string | undefined>();
 
   const handleVideoUrl = (url: string) => {
     setVideoUrl(url);
@@ -36,46 +39,74 @@ export default function Features({ activeTab }: { activeTab: number }) {
 
   const notify = () => toast("فایل ها را به صورت صحیح بارگذاری کنید!");
 
-  const handleFileUpload = async (file: File, type: "image" | "video") => {
-    const formData = new FormData();
-    // formData.append(type, file);
-    if (type === "video") {
-      formData.append("driving_video", file);
-    } else if (type === "image") {
-      formData.append("source_image", file);
+  const retargetImageUpload = () => {
+    if (!selectedImage) {
+      notify();
+      return null;
     }
 
-    const endpoint = type === "image" ? "upload-image" : "upload-video";
+    // switch (mood) {
+    //   case 'smile':
+    //     formData.append("smile", '0.03');
+    //     console.log('appended');
+
+    //     break;
+
+    //   default:
+    //     break;
+    // }
+    handleFileUpload(selectedImage, "image_retargeting", "smile");
+  };
+
+  const handleFileUpload = async (
+    file: File,
+    type: "image" | "video" | "image_retargeting" | "video_retargeting",
+    mood?: string
+  ) => {
+    const formData = new FormData();
+
+    // retargeting
+    if (type === "image_retargeting") {
+      formData.append("input_image", file);
+      formData.append("smile", "2");
+    } else if (type === "video_retargeting") {
+      formData.append("input_video", file);
+      formData.append("smile", "2");
+    }
+
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
 
     try {
-      const response = await fetch("http://localhost:8000/api/process_video", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/process_image_retargeting/",
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
 
-      if (response.ok) {
-        const data = await response.json();
-        setUploadMessage(
-          `${type === "image" ? "Image" : "Video"} uploaded successfully: ${
-            data.filePath
-          }`
-        );
-      } else {
-        const errorData = await response.json();
-        setUploadMessage(`Error: ${errorData.error}`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    } catch (error) {
-      setUploadMessage(`An error occurred while uploading the ${type}.`);
 
-      console.error(error);
+      const imageBlob = await response.blob();
+      const imageBlobUrl = URL.createObjectURL(imageBlob);
+      setImageUrl(imageBlobUrl);
+    } catch (error) {
+      console.error("Error uploading files:", error);
+      console.log("this");
     }
   };
 
   const handleImageSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
+      console.log("no image is selected");
+
       setSelectedImage(null);
       setImagePreview(undefined);
       return;
@@ -114,54 +145,6 @@ export default function Features({ activeTab }: { activeTab: number }) {
     }
 
     return () => URL.revokeObjectURL(objectUrl);
-  };
-
-  const handleImageUpload = async () => {
-    if (selectedImage) {
-      await handleFileUpload(selectedImage, "image");
-    } else {
-      setUploadMessage("No image selected for upload.");
-    }
-  };
-
-  const handleVideoUpload = async () => {
-    if (selectedVideo) {
-      await handleFileUpload(selectedVideo, "video");
-    } else {
-      setUploadMessage("No video selected for upload.");
-    }
-  };
-
-  const aiProcess = async () => {
-    if (!selectedImage || !selectedVideo) {
-      notify();
-      return null;
-    }
-    setIsProcessing(true);
-    await handleVideoUpload();
-    await handleImageUpload();
-
-    try {
-      // Fetch the example video
-      const response = await fetch("http://localhost:4000/example-video/", {
-        method: "GET",
-      });
-
-      if (response.ok) {
-        const videoBlob = await response.blob();
-        const videoUrl = URL.createObjectURL(videoBlob);
-        setFetchedVideo(videoUrl);
-      } else {
-        console.error("Failed to fetch the example video");
-      }
-    } catch (error) {
-      console.error(
-        "An error occurred while fetching the example video:",
-        error
-      );
-    } finally {
-      setIsProcessing(false);
-    }
   };
 
   const downloadVideo = () => {
@@ -278,21 +261,17 @@ export default function Features({ activeTab }: { activeTab: number }) {
             <div className="flex-1 flex flex-col gap-4">
               <h6>انتخاب کنید</h6>
               <div className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center justify-center">
-                <Avatars />
+                <Avatars setMood={setMood} />
               </div>
             </div>
           </div>
-
+          <div>{uploadMessage}</div>
           {/* Display the AI generated Video */}
-          {fetchedVideo ? (
+          {imageUrl ? (
             <>
               <div className="mt-8">
                 <h6 className="font-extrabold text-xl">ویدئو تولید شده:</h6>
-                <video
-                  src={fetchedVideo}
-                  controls
-                  className="border border-gray-300 rounded-lg max-h-[300px]"
-                />
+                <img src={imageUrl} alt="somthing is wrong" />
               </div>
               <button
                 className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
@@ -304,7 +283,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
           ) : (
             <button
               className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
-              onClick={aiProcess}
+              onClick={retargetImageUpload}
             >
               تولید ویدئو
             </button>
@@ -358,7 +337,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
             <div className="flex-1 flex flex-col gap-4">
               <h6>انتخاب کنید</h6>
               <div className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center">
-                <Avatars />
+                <Avatars setMood={setMood} />
               </div>
             </div>
           </div>
@@ -384,7 +363,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
           ) : (
             <button
               className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
-              onClick={aiProcess}
+              onClick={handleFileUpload}
             >
               تولید ویدئو
             </button>
