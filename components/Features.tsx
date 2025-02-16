@@ -11,6 +11,7 @@ import ImageToVideo from "./tabFeatures/ImageToVideo";
 import VideoToVideo from "./tabFeatures/VideoToVideo";
 import StarLoader from "./StarLoader";
 import ImageRetargeting from "./tabFeatures/Retargeting/ImageRetargeting";
+import VideoRetargeting from "./tabFeatures/Retargeting/VideoRetargeting";
 
 export default function Features({ activeTab }: { activeTab: number }) {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
@@ -37,8 +38,6 @@ export default function Features({ activeTab }: { activeTab: number }) {
   const handleVideoUrl = (url: string) => {
     setVideoUrl(url);
   };
-
-  
 
   const notify = () => toast("فایل ها را به صورت صحیح بارگذاری کنید!");
 
@@ -255,60 +254,18 @@ export default function Features({ activeTab }: { activeTab: number }) {
     case 3:
       return (
         <>
-          <div className="mt-[52px] flex gap-4">
-            {/* Image Upload Section */}
-            <div className="flex-1 flex flex-col gap-4">
-              <h6>انتخاب ویدئو</h6>
-              <div
-                className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center cursor-pointer"
-                onClick={() => videoInputRefSource.current?.click()}
-              >
-                <input
-                  accept="video/*"
-                  type="file"
-                  className="hidden"
-                  ref={videoInputRefSource}
-                  onChange={(e) => {
-                    handleVideoSelection(e, "source");
-                  }}
-                />
-
-                {selectedVideo && videoPreviewSource ? (
-                  <video
-                    src={videoPreviewSource}
-                    controls
-                    className="max-h-[300px]"
-                  />
-                ) : (
-                  <>
-                    <Image src={videoAdd} alt="logo" width={24} height={24} />
-                    <p className="text-[#767676]">بارگذاری ویدیو</p>
-                  </>
-                )}
-              </div>
-
-              <div className="flex gap-2">
-                <p>حداکثر حجم ویدیو:</p>
-                <p>200 مگابایت</p>
-              </div>
-            </div>
-
-            {/* Emotion selection Section */}
-            <div className="flex-1 flex flex-col gap-4">
-              <h6>انتخاب کنید</h6>
-              <div className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center">
-                <Avatars setMood={setMood} />
-              </div>
-            </div>
-          </div>
+          <VideoRetargeting
+            setVideoUrl={setVideoUrl}
+            isProcessing={setIsProcessing}
+          />
 
           {/* Display the AI generated Video */}
-          {fetchedVideo ? (
+          {videoUrl && (
             <>
               <div className="mt-8">
                 <h6 className="font-extrabold text-xl">ویدئو تولید شده:</h6>
                 <video
-                  src={fetchedVideo}
+                  src={videoUrl}
                   controls
                   className="border border-gray-300 rounded-lg max-h-[300px]"
                 />
@@ -320,13 +277,6 @@ export default function Features({ activeTab }: { activeTab: number }) {
                 دانلود ویدئو
               </button>
             </>
-          ) : (
-            <button
-              className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
-              onClick={()=>{}}
-            >
-              تولید ویدئو
-            </button>
           )}
 
           {isProcessing && <StarLoader />}
