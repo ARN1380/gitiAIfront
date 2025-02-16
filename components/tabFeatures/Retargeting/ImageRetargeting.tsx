@@ -32,7 +32,6 @@ export default function ImageRetargeting({
       toast("عکس را به درستی انتخاب کنید!");
       return;
     }
-    console.log(e.target.files[0]);
 
     const file = e.target.files[0];
     setSelectedImage(file);
@@ -62,7 +61,7 @@ export default function ImageRetargeting({
         fetchData(selectedImage, "expression6", "3");
         break;
       case "wink":
-        fetchData(selectedImage, "eyebrow", "22");
+        fetchData(selectedImage, "wink", "20");
         break;
       case "angry":
         //
@@ -92,9 +91,6 @@ export default function ImageRetargeting({
     formData.append("input_image", file);
     formData.append(mood, strength);
 
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
 
     isProcessing(true);
 
