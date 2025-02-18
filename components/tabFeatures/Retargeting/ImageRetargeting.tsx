@@ -25,6 +25,7 @@ export default function ImageRetargeting({
   const imageInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     if (!e.target.files || e.target.files.length === 0) {
       console.log("no image is selected");
       setSelectedImage(null);

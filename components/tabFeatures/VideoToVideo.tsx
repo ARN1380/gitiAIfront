@@ -1,38 +1,32 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import videoAdd from "@/public/assets/images/video.svg";
+import { toast } from "react-toastify";
 
 interface VideoToVideoProps {
-  onVideoUrlChange: (url: string) => void;
+  setVideoUrl: (url: string) => void;
   setIsProcessing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const VideoToVideo: React.FC<VideoToVideoProps> = ({
-  onVideoUrlChange,
+  setVideoUrl,
   setIsProcessing,
 }) => {
   const [sourceVideo, setSourceVideo] = useState<File | null>(null);
-  const [drivingVideo, setDrivingVideo] = useState<File | null>(null);
-  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [drivingVideo, setDrivingVideo] = useState<File | null>(null);  
 
   const sourceVideoInputRef = useRef<HTMLInputElement>(null);
   const drivingVideoInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (videoUrl) {
-      onVideoUrlChange(videoUrl);
-      setIsProcessing(false);
-      console.log("set processing to False");
-    }
-  }, [videoUrl]);
-
   const handleSourceVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     if (e.target.files && e.target.files[0]) {
       setSourceVideo(e.target.files[0]);
     }
   };
 
-  const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDrivingVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     if (e.target.files && e.target.files[0]) {
       setDrivingVideo(e.target.files[0]);
     }
@@ -40,11 +34,11 @@ const VideoToVideo: React.FC<VideoToVideoProps> = ({
 
   const handleSubmit = async () => {
     if (!sourceVideo || !drivingVideo) {
-      alert("Please select both videos.");
+      toast("لطفا ویدیو ها را به درستی انتخاب کنید");
       return;
     }
 
-    setIsProcessing(true);    
+    setIsProcessing(true);
     const formData = new FormData();
     formData.append("source_video", sourceVideo);
     formData.append("driving_video", drivingVideo);
@@ -63,10 +57,13 @@ const VideoToVideo: React.FC<VideoToVideoProps> = ({
       }
 
       const videoBlob = await response.blob();
-      const videoUrl = URL.createObjectURL(videoBlob);
-      setVideoUrl(videoUrl);
+      const videoBlobUrl = URL.createObjectURL(videoBlob);
+      setVideoUrl(videoBlobUrl);
+      setIsProcessing(false);
     } catch (error) {
       console.error("Error uploading files:", error);
+      toast("مشکلی در اتصال به سرور پیش آمده");
+      setIsProcessing(false);
     }
   };
 
@@ -90,10 +87,10 @@ const VideoToVideo: React.FC<VideoToVideoProps> = ({
 
             {sourceVideo ? (
               <video
-              src={URL.createObjectURL(sourceVideo)}
-              controls
-              className="max-h-[300px]"
-            />
+                src={URL.createObjectURL(sourceVideo)}
+                controls
+                className="max-h-[300px]"
+              />
             ) : (
               <>
                 <Image src={videoAdd} alt="logo" width={24} height={24} />
@@ -119,7 +116,7 @@ const VideoToVideo: React.FC<VideoToVideoProps> = ({
               type="file"
               className="hidden"
               ref={drivingVideoInputRef}
-              onChange={handleVideoChange}
+              onChange={handleDrivingVideoChange}
             />
 
             {drivingVideo ? (

@@ -25,6 +25,7 @@ export default function VideoRetargeting({
   const videoInputRef = useRef<HTMLInputElement>(null);
 
   const handleVideoSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     if (!e.target.files || e.target.files.length === 0) {
       console.log("no image is selected");
       setSelectedVideo(null);
