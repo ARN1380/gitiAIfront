@@ -20,16 +20,13 @@ export default function Features({ activeTab }: { activeTab: number }) {
     if (data) {
       const link = document.createElement("a");
       data.replace("blob:", "");
-      link.href = data;
-      console.log(data);
+      link.href = data;    
       if (type === 'video') {        
         link.download = "example-video.mp4"; // Default name for the downloaded file
       } else if (type === 'image') {        
         link.download = "example-video.png"; // Default name for the downloaded file
       }
-      document.body.appendChild(link);
-      console.log(link);
-
+      document.body.appendChild(link);      
       link.click();
       document.body.removeChild(link);
     }
@@ -56,7 +53,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
               </div>
               <button
                 className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
-                onClick={()=>{downloadVideo(I2VvideoUrl)}}
+                onClick={()=>{downloadVideo(I2VvideoUrl, 'video')}}
               >
                 دانلود ویدئو
               </button>
@@ -86,7 +83,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
               </div>
               <button
                 className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
-                onClick={()=>{downloadVideo(V2VvideoUrl)}}
+                onClick={()=>{downloadVideo(V2VvideoUrl, 'video')}}
               >
                 دانلود ویدئو
               </button>
@@ -112,7 +109,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
               </div>
               <button
                 className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
-                onClick={()=>{downloadVideo(retartgetingImageUrl)}}
+                onClick={()=>{downloadVideo(retartgetingImageUrl, 'image')}}
               >
                 دانلود تصویر
               </button>
@@ -143,7 +140,7 @@ export default function Features({ activeTab }: { activeTab: number }) {
               </div>
               <button
                 className="bg-gradient-to-r from-[#3D16EC] to-[#FD247B] rounded-lg text-white w-[174px] h-[48px] mt-[20px] self-end"
-                onClick={()=>{downloadVideo(retargetingVideoUrl)}}
+                onClick={()=>{downloadVideo(retargetingVideoUrl, 'image')}}
               >
                 دانلود ویدئو
               </button>
