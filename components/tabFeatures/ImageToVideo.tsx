@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import galleryAdd from "@/public/assets/images/gallery-add.svg";
 import videoAdd from "@/public/assets/images/video.svg";
@@ -14,7 +14,7 @@ const ImageToVideo: React.FC<ImageToVideoProps> = ({
   setIsProcessing,
 }) => {
   const [sourceImage, setSourceImage] = useState<File | null>(null);
-  const [drivingVideo, setDrivingVideo] = useState<File | null>(null);  
+  const [drivingVideo, setDrivingVideo] = useState<File | null>(null);
 
   const imageInputRef = useRef<HTMLInputElement>(null);
   const videoInputRefSource = useRef<HTMLInputElement>(null);
@@ -35,11 +35,11 @@ const ImageToVideo: React.FC<ImageToVideoProps> = ({
 
   const handleSubmit = async () => {
     if (!sourceImage || !drivingVideo) {
-      toast('لطفا عکس و ویدیو را به درستی انتخاب نمایید')
+      toast("لطفا عکس و ویدیو را به درستی انتخاب نمایید");
       return;
     }
 
-    setIsProcessing(true);    
+    setIsProcessing(true);
     const formData = new FormData();
     formData.append("source_image", sourceImage);
     formData.append("driving_video", drivingVideo);
@@ -63,7 +63,7 @@ const ImageToVideo: React.FC<ImageToVideoProps> = ({
       setIsProcessing(false);
     } catch (error) {
       console.error("Error uploading files:", error);
-      toast('مشکلی در اتصال به سرور پیش آمده')
+      toast("مشکلی در اتصال به سرور پیش آمده");
       setIsProcessing(false);
     }
   };
@@ -76,7 +76,7 @@ const ImageToVideo: React.FC<ImageToVideoProps> = ({
           <h6>انتخاب تصویر</h6>
           <div
             className="border-dashed border border-[#E5E7EB] rounded-lg min-h-[312px] flex items-center gap-2 justify-center cursor-pointer"
-            onClick={() => imageInputRef.current?.click()}            
+            onClick={() => imageInputRef.current?.click()}
           >
             <input
               accept="image/*"

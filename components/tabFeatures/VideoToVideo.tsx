@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import videoAdd from "@/public/assets/images/video.svg";
 import { toast } from "react-toastify";
 
 interface VideoToVideoProps {
-  setVideoUrl: (url: string) => void;
+  setVideoUrl: React.Dispatch<React.SetStateAction<string | null>>;
   setIsProcessing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -13,7 +13,7 @@ const VideoToVideo: React.FC<VideoToVideoProps> = ({
   setIsProcessing,
 }) => {
   const [sourceVideo, setSourceVideo] = useState<File | null>(null);
-  const [drivingVideo, setDrivingVideo] = useState<File | null>(null);  
+  const [drivingVideo, setDrivingVideo] = useState<File | null>(null);
 
   const sourceVideoInputRef = useRef<HTMLInputElement>(null);
   const drivingVideoInputRef = useRef<HTMLInputElement>(null);
