@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🤖 Giti AI - Face Animation & Emotion Transformation
 
-## Getting Started
+Giti AI is a modern web frontend developed for a **Persian AI company**.  
+It provides an interface for advanced artificial intelligence services that  
+transform static images into animated, lifelike videos.  
+The system can detect facial features, change emotions, and  
+generate realistic animations from both **images and videos**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📸 Preview
+<img width="2968" height="3483" alt="sima2" src="https://github.com/user-attachments/assets/adbb7012-261e-413c-8be2-493a559fa5fd" />
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Features
+- 🎭 **Emotion Transformation**: Change facial expressions to different moods  
+- 🖼️ **Image to Video Animation**: Animate static photos using AI  
+- 🎥 **Video Enhancement**: Apply facial emotion changes directly on videos  
+- 🌐 **Persian Language UI**: Full RTL (Right-to-Left) support  
+- 🎨 **Clean & Modern Design**: User-friendly and professional layout  
+- 📱 **Responsive Design**: Optimized for desktop, tablet, and mobile devices  
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📂 Folder Structure
+GitiAI/
+│── public/ # Static assets (images, icons)
+│── src/
+│ ├── components/ # UI components
+│ ├── pages/ # Application pages
+│ ├── styles/ # TailwindCSS and global styles
+│ ├── utils/ # Helper functions (if any)
+│── package.json
+│── tailwind.config.js
+│── README.md
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🖥️ Tech Stack
 
-## Deploy on Vercel
+Next.js
+Tailwind CSS
+TypeScript 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+📖 Notes
+
+- This project was developed for a Persian AI company.
+- The UI is fully in Persian with RTL support.
+- Backend AI service integration is required for full functionality
+  (face animation and emotion transformation).
+- This repository focuses on the frontend interface.
