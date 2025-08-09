@@ -24,19 +24,6 @@ generate realistic animations from both **images and videos**.
 
 ---
 
-## 📂 Folder Structure
-GitiAI/
-│── public/ # Static assets (images, icons)
-│── src/
-│ ├── components/ # UI components
-│ ├── pages/ # Application pages
-│ ├── styles/ # TailwindCSS and global styles
-│ ├── utils/ # Helper functions (if any)
-│── package.json
-│── tailwind.config.js
-│── README.md
-
----
 
 🖥️ Tech Stack
 
